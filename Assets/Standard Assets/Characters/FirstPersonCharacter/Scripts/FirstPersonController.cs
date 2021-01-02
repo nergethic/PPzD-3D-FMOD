@@ -26,9 +26,15 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
         [SerializeField] private float m_StepInterval;
         [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
-        [SerializeField] AudioClip[] runningFootsteps;
+        [SerializeField] AudioClip[] walkingFootstepsIndoor;
+        [SerializeField] AudioClip[] runningFootstepsIndoor;
+        [SerializeField] AudioClip[] walkingFootstepsOutdoor;
+        [SerializeField] AudioClip[] runningFootstepsOutdoor;
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+
+        private AudioClip[] currentRunningFootsteps;
+        private AudioClip[] currentWalkingFootsteps;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -57,8 +63,14 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            UpdateCurrentFootstepsPlacementState(EntityPlacementState.Outside);
         }
 
+        public void UpdateCurrentFootstepsPlacementState(EntityPlacementState state) {
+            currentWalkingFootsteps = state == EntityPlacementState.Interior ? walkingFootstepsIndoor : walkingFootstepsOutdoor;
+            currentRunningFootsteps = state == EntityPlacementState.Interior ? runningFootstepsIndoor : runningFootstepsOutdoor;
+        }
 
         // Update is called once per frame
         private void Update() {
@@ -172,7 +184,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             }
             // pick & play a random footstep sound from the array,
             // excluding sound at index 0
-            var foostepsClips = m_IsWalking ? m_FootstepSounds : runningFootsteps;
+            var foostepsClips = m_IsWalking ? currentWalkingFootsteps : currentRunningFootsteps;
             int n = Random.Range(1, foostepsClips.Length);
             m_AudioSource.clip = foostepsClips[n];
             m_AudioSource.PlayOneShot(m_AudioSource.clip);
@@ -261,4 +273,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
     }
+}
+
+public enum EntityPlacementState {
+    Interior = 0,
+    Outside
 }

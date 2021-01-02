@@ -13,9 +13,11 @@ GameObject:
   - component: {fileID: 11400000}
   - component: {fileID: 5400000}
   - component: {fileID: 8200000}
+  - component: {fileID: 8034492000441430741}
+  - component: {fileID: 8671427435138584101}
   m_Layer: 0
   m_Name: FPSController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,6 +177,18 @@ MonoBehaviour:
   m_FootstepSounds:
   - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
+  walkingFootstepsIndoor:
+  - {fileID: 8300000, guid: eb6bcc851b8c89147bc2b9ffec6cf092, type: 3}
+  - {fileID: 8300000, guid: 4c17463961669a04cb46b252559a1b27, type: 3}
+  runningFootstepsIndoor:
+  - {fileID: 8300000, guid: b795ab4eaf799224fbb39fa9fe436a77, type: 3}
+  - {fileID: 8300000, guid: dc5e242adbdf11f478a4c7f5a26fb9e7, type: 3}
+  walkingFootstepsOutdoor:
+  - {fileID: 8300000, guid: 8926f713f2aca314dace2f25598663ab, type: 3}
+  - {fileID: 8300000, guid: b18dc4cce54291942840029678ec7357, type: 3}
+  runningFootstepsOutdoor:
+  - {fileID: 8300000, guid: baa58db43d69cb64fa0d6c6e55f41bd6, type: 3}
+  - {fileID: 8300000, guid: 6bf5b4c2441eb3547baa3eee79ff946e, type: 3}
   m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
   m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
 --- !u!54 &5400000
@@ -204,7 +218,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -289,6 +303,34 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!136 &8034492000441430741
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8671427435138584101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09f77dca6b7f5849b27fc16eb92c9ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 11400000}
+  ambienceAudioSource: {fileID: 0}
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
