@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{53ce0f31-ecad-4631-81d4-e22c7996b756}">
+		<property name="assetPath">
+			<value>Sci-fi sounds/PM_FSSF2_EXOSKELETON_11_SERVO_MOVEMENT_ROTATION.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.90954648526077098</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{740d47ca-9ca2-47b2-a74c-f78566874a3b}</destination>
+		</relationship>
+	</object>
+</objects>

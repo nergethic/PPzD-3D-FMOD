@@ -1,4 +1,5 @@
 using System;
+using FMODUnity;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
@@ -24,17 +25,16 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private bool m_UseHeadBob;
         [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
         [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
-        [SerializeField] private float m_StepInterval;
-        [SerializeField] private AudioClip[] m_FootstepSounds;    // an array of footstep sounds that will be randomly selected from.
-        [SerializeField] AudioClip[] walkingFootstepsIndoor;
-        [SerializeField] AudioClip[] runningFootstepsIndoor;
-        [SerializeField] AudioClip[] walkingFootstepsOutdoor;
-        [SerializeField] AudioClip[] runningFootstepsOutdoor;
-        [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
-        [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
+        [SerializeField] private float m_StepInterval; // an array of footstep sounds that will be randomly selected from.
+        [SerializeField, EventRef] string walkingFootstepsIndoor;
+        [SerializeField, EventRef] string runningFootstepsIndoor;
+        [SerializeField, EventRef] string walkingFootstepsOutdoor;
+        [SerializeField, EventRef] string runningFootstepsOutdoor;
+        [SerializeField, EventRef] string m_JumpSound;           // the sound played when character leaves the ground.
+        [SerializeField, EventRef] string m_LandSound;           // the sound played when character touches back on ground.
 
-        private AudioClip[] currentRunningFootsteps;
-        private AudioClip[] currentWalkingFootsteps;
+        [EventRef] string currentRunningFootsteps;
+        [EventRef] string currentWalkingFootsteps;
 
         private Camera m_Camera;
         private bool m_Jump;
@@ -48,7 +48,6 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_StepCycle;
         private float m_NextStep;
         private bool m_Jumping;
-        private AudioSource m_AudioSource;
 
         // Use this for initialization
         private void Start()
@@ -61,8 +60,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_StepCycle = 0f;
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
-            m_AudioSource = GetComponent<AudioSource>();
-			m_MouseLook.Init(transform , m_Camera.transform);
+            m_MouseLook.Init(transform , m_Camera.transform);
 
             UpdateCurrentFootstepsPlacementState(EntityPlacementState.Outside);
         }
@@ -101,8 +99,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayLandingSound()
         {
-            m_AudioSource.clip = m_LandSound;
-            m_AudioSource.Play();
+            RuntimeManager.PlayOneShot(m_LandSound);
             m_NextStep = m_StepCycle + .5f;
         }
 
@@ -152,8 +149,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void PlayJumpSound()
         {
-            m_AudioSource.clip = m_JumpSound;
-            m_AudioSource.Play();
+            RuntimeManager.PlayOneShot(m_JumpSound);
         }
 
 
@@ -182,15 +178,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
             {
                 return;
             }
-            // pick & play a random footstep sound from the array,
-            // excluding sound at index 0
-            var foostepsClips = m_IsWalking ? currentWalkingFootsteps : currentRunningFootsteps;
-            int n = Random.Range(1, foostepsClips.Length);
-            m_AudioSource.clip = foostepsClips[n];
-            m_AudioSource.PlayOneShot(m_AudioSource.clip);
-            // move picked sound to index 0 so it's not picked next time
-            foostepsClips[n] = foostepsClips[0];
-            foostepsClips[0] = m_AudioSource.clip;
+
+            var currentFoostepsEventName = m_IsWalking ? currentWalkingFootsteps : currentRunningFootsteps;
+            RuntimeManager.PlayOneShot(currentFoostepsEventName);
         }
 
 

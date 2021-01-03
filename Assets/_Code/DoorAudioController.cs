@@ -1,15 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using FMODUnity;
 
 public class DoorAudioController : MonoBehaviour {
-    [SerializeField] AudioSource audioSource;
-    [SerializeField] AudioClip doorOpen;
-    [SerializeField] AudioClip doorClose;
-    
+    [SerializeField] StudioBankLoader bankLoader;
+    [SerializeField, BankRef] private string doorBankName;
+    [SerializeField, EventRef] string doorOpenEventNameRef; 
+    [SerializeField, EventRef] string doorCloseEventNameRef;
+
+    private void Awake() {
+        bankLoader.Load();
+    }
+
+    private void OnDestroy() {
+        bankLoader.Unload();
+    }
+
     public void OnDoorOpen() {
-        audioSource.PlayOneShot(doorOpen);
+        RuntimeManager.PlayOneShot(doorOpenEventNameRef);
     }
     
     public void OnDoorClosed() {
-        audioSource.PlayOneShot(doorClose);
+        RuntimeManager.PlayOneShot(doorCloseEventNameRef);
     }
 }

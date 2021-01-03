@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{44a998d6-887a-420b-8ef2-27267594db04}">
+		<property name="assetPath">
+			<value>Sci-fi sounds/PM_FSSF2_AMBIENCE_ENGINEROOM1_LOOP.ogg</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>60</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{740d47ca-9ca2-47b2-a74c-f78566874a3b}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -174,23 +174,12 @@ MonoBehaviour:
     BobDuration: 0.2
     BobAmount: 0.1
   m_StepInterval: 5
-  m_FootstepSounds:
-  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
-  - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
-  walkingFootstepsIndoor:
-  - {fileID: 8300000, guid: eb6bcc851b8c89147bc2b9ffec6cf092, type: 3}
-  - {fileID: 8300000, guid: 4c17463961669a04cb46b252559a1b27, type: 3}
-  runningFootstepsIndoor:
-  - {fileID: 8300000, guid: b795ab4eaf799224fbb39fa9fe436a77, type: 3}
-  - {fileID: 8300000, guid: dc5e242adbdf11f478a4c7f5a26fb9e7, type: 3}
-  walkingFootstepsOutdoor:
-  - {fileID: 8300000, guid: 8926f713f2aca314dace2f25598663ab, type: 3}
-  - {fileID: 8300000, guid: b18dc4cce54291942840029678ec7357, type: 3}
-  runningFootstepsOutdoor:
-  - {fileID: 8300000, guid: baa58db43d69cb64fa0d6c6e55f41bd6, type: 3}
-  - {fileID: 8300000, guid: 6bf5b4c2441eb3547baa3eee79ff946e, type: 3}
-  m_JumpSound: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
-  m_LandSound: {fileID: 8300000, guid: 3b09d59f4499d45428baa7a21e954296, type: 3}
+  walkingFootstepsIndoor: event:/Player/Footstep Indoor
+  runningFootstepsIndoor: event:/Player/Running Indoor
+  walkingFootstepsOutdoor: event:/Player/Footstep Outdoor
+  runningFootstepsOutdoor: event:/Player/Running Outdoor
+  m_JumpSound: event:/Player/Jump
+  m_LandSound: event:/Player/Land
 --- !u!54 &5400000
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -330,7 +319,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 11400000}
-  ambienceAudioSource: {fileID: 0}
+  ambienceBankName: Ambience
+  ambienceEventName: event:/Ambience/Ambience
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,8 +331,9 @@ GameObject:
   m_Component:
   - component: {fileID: 400002}
   - component: {fileID: 2000000}
-  - component: {fileID: 8100000}
   - component: {fileID: 12474086}
+  - component: {fileID: 5176660680754804598}
+  - component: {fileID: 1752704467241753650}
   m_Layer: 0
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
@@ -407,16 +398,30 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8100000
-AudioListener:
+--- !u!124 &12474086
+Behaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100002}
   m_Enabled: 1
---- !u!124 &12474086
-Behaviour:
+--- !u!114 &5176660680754804598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
+  ListenerNumber: -1
+--- !u!81 &1752704467241753650
+AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
